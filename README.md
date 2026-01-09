@@ -1,6 +1,6 @@
 # BotFramework Chat - Custom Components
 
-A React chat application connecting to Microsoft Power Virtual Agents using the BotFramework WebChat library with **fully custom UI components**.
+A React chat application connecting to Microsoft Copilot Studio using the BotFramework WebChat library with **fully custom UI components**.
 
 ## Implementation Approach
 
