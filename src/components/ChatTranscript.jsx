@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { hooks } from 'botframework-webchat';
+import Markdown from 'react-markdown';
 
 const { useActivities } = hooks;
 
@@ -35,7 +36,18 @@ function ChatTranscript() {
             className={`message message--${msg.from}`}
           >
             <div className="message__bubble">
-              {msg.text}
+              <Markdown
+                components={{
+                  // Open links in new tab
+                  a: ({ href, children }) => (
+                    <a href={href} target="_blank" rel="noopener noreferrer">
+                      {children}
+                    </a>
+                  ),
+                }}
+              >
+                {msg.text}
+              </Markdown>
             </div>
           </div>
         ))
