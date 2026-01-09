@@ -1,0 +1,370 @@
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Full-page layout */
+.chat-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #0a1628 0%, #1a365d 30%, #2d5a87 60%, #1a365d 100%);
+}
+
+/* Header */
+.header {
+  padding: 1rem 2rem;
+  flex-shrink: 0;
+}
+
+.header-content {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.logo-icon {
+  font-size: 1.5rem;
+}
+
+.logo-text {
+  opacity: 0.95;
+}
+
+.start-over-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.start-over-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Main chat area */
+.chat-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0 1rem;
+}
+
+.chat-container {
+  flex: 1;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Footer */
+.footer {
+  padding: 1rem 2rem;
+  flex-shrink: 0;
+}
+
+.footer-content {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+}
+
+.footer-link {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.footer-separator {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* Loading state */
+.loading-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  color: #ffffff;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Error state */
+.error-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  color: #ffffff;
+  text-align: center;
+  padding: 2rem;
+}
+
+.error-container h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.error-container p {
+  opacity: 0.8;
+  max-width: 400px;
+}
+
+.error-container button {
+  background: #0078d4;
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s ease;
+}
+
+.error-container button:hover {
+  background: #106ebe;
+}
+
+/* WebChat overrides */
+
+/* Transcript container */
+[class*="webchat__basic-transcript"] {
+  background: transparent !important;
+  padding: 1rem 0;
+}
+
+/* Activity container */
+[class*="webchat__stacked-layout"] {
+  max-width: 100%;
+}
+
+/* Bubble adjustments */
+[class*="webchat__bubble"] {
+  max-width: 80%;
+}
+
+/* Send box wrapper */
+.sendbox-wrapper {
+  padding: 0.75rem 2rem 1.25rem;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Remove all extra borders/backgrounds from send box layers */
+.sendbox-wrapper > div,
+[class*="webchat__send-box-layout"] {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Main send box - single clean container */
+[class*="webchat__send-box__main"] {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-radius: 25px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+  border: none !important;
+  padding: 0.125rem !important;
+  flex-direction: row !important;
+}
+
+/* Text input area */
+[class*="webchat__send-box__text-box"] {
+  background: transparent !important;
+  border: none !important;
+  flex: 1 !important;
+}
+
+[class*="webchat__send-box-text-box__input"] {
+  color: #333333 !important;
+  padding: 0.5rem 1rem !important;
+  font-size: 0.95rem !important;
+}
+
+[class*="webchat__send-box-text-box__input"]::placeholder {
+  color: #888888 !important;
+}
+
+/* Suggested actions */
+[class*="webchat__suggested-actions"] {
+  padding: 0.5rem 0;
+}
+
+[class*="webchat__suggested-action__button"] {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  color: #ffffff !important;
+  border-radius: 20px !important;
+  padding: 0.5rem 1rem !important;
+  transition: all 0.2s ease;
+}
+
+[class*="webchat__suggested-action__button"]:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Typing indicator - modern animated dots */
+[class*="webchat__typing-indicator"] {
+  color: transparent !important;
+  background: transparent !important;
+  display: flex !important;
+  justify-content: flex-start !important;
+  padding-left: 0.5rem !important;
+}
+
+/* Hide default typing indicator content */
+[class*="webchat__typing-indicator"] > * {
+  display: none !important;
+}
+
+/* Custom typing indicator */
+[class*="webchat__typing-indicator"]::before {
+  content: '';
+  display: inline-flex;
+  width: 60px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+
+[class*="webchat__typing-indicator"]::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+  width: 36px;
+  height: 8px;
+  background:
+    radial-gradient(circle at 6px 4px, rgba(255,255,255,0.7) 3px, transparent 3px),
+    radial-gradient(circle at 18px 4px, rgba(255,255,255,0.7) 3px, transparent 3px),
+    radial-gradient(circle at 30px 4px, rgba(255,255,255,0.7) 3px, transparent 3px);
+  animation: typingDots 1.4s infinite ease-in-out;
+}
+
+@keyframes typingDots {
+  0%, 60%, 100% {
+    background:
+      radial-gradient(circle at 6px 4px, rgba(255,255,255,0.4) 3px, transparent 3px),
+      radial-gradient(circle at 18px 4px, rgba(255,255,255,0.7) 3px, transparent 3px),
+      radial-gradient(circle at 30px 4px, rgba(255,255,255,0.4) 3px, transparent 3px);
+  }
+  20% {
+    background:
+      radial-gradient(circle at 6px 4px, rgba(255,255,255,0.9) 3px, transparent 3px),
+      radial-gradient(circle at 18px 4px, rgba(255,255,255,0.4) 3px, transparent 3px),
+      radial-gradient(circle at 30px 4px, rgba(255,255,255,0.4) 3px, transparent 3px);
+  }
+  40% {
+    background:
+      radial-gradient(circle at 6px 4px, rgba(255,255,255,0.4) 3px, transparent 3px),
+      radial-gradient(circle at 18px 4px, rgba(255,255,255,0.9) 3px, transparent 3px),
+      radial-gradient(circle at 30px 4px, rgba(255,255,255,0.4) 3px, transparent 3px);
+  }
+  80% {
+    background:
+      radial-gradient(circle at 6px 4px, rgba(255,255,255,0.4) 3px, transparent 3px),
+      radial-gradient(circle at 18px 4px, rgba(255,255,255,0.4) 3px, transparent 3px),
+      radial-gradient(circle at 30px 4px, rgba(255,255,255,0.9) 3px, transparent 3px);
+  }
+}
+
+/* Scrollbar styling */
+.chat-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.chat-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem;
+  }
+
+  .sendbox-wrapper {
+    padding: 1rem;
+  }
+
+  .footer {
+    padding: 0.75rem 1rem;
+  }
+
+  [class*="webchat__bubble"] {
+    max-width: 90%;
+  }
+}
