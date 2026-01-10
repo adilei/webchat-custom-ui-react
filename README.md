@@ -1,10 +1,10 @@
 # BotFramework Chat - Custom Components
 
-A React chat application with **fully custom UI components** built on top of BotFramework WebChat's hooks layer. Supports Microsoft Copilot Studio bots via Direct Line or the M365 Agents SDK.
+A React chat application with **fully custom UI components** built on top of BotFramework WebChat's hooks layer. Supports Microsoft Copilot Studio agents via Direct Line or the M365 Agents SDK.
 
 ## Quick Start
 
-See it in action without any bot configuration:
+See it in action without any agent configuration:
 
 ```bash
 npm install
@@ -21,7 +21,7 @@ This runs an interactive HR assistant demo that showcases streaming text, adapti
 ```
 http://localhost:5173/?demo
 ```
-- **No bot connection required** - runs entirely client-side
+- **No agent connection required** - runs entirely client-side
 - Interactive guided walkthrough of an HR assistant scenario
 - Demonstrates all UI features: streaming, adaptive cards, markdown tables, suggested actions
 
@@ -122,7 +122,7 @@ Instead of using WebChat's pre-built `<ReactWebChat>` component, this project us
 │     (Provides hooks to descendants)     │
 ├─────────────────────────────────────────┤
 │        DirectLine / Mock Layer          │
-│    (Connection to bot or simulation)    │
+│   (Connection to agent or simulation)   │
 └─────────────────────────────────────────┘
 ```
 

@@ -5,10 +5,10 @@ This document explains how BotFramework WebChat's Composer and hooks system work
 ## How It Works
 
 The BotFramework WebChat library is designed in layers. At its core is a **state machine** powered by Redux that manages:
-- The Direct Line connection (WebSocket to the bot)
+- The Direct Line connection (WebSocket to the agent)
 - Chat activities (messages, events, typing indicators)
 - Send box state
-- User/bot identity
+- User/agent identity
 
 The `<Composer>` component wraps this state machine in a React Context, making it available to any descendant component via hooks.
 
@@ -86,7 +86,7 @@ function SendBox() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (text.trim()) {
-      sendMessage(text);  // Sends to bot via Direct Line
+      sendMessage(text);  // Sends to agent via Direct Line
       setText('');
     }
   };
@@ -120,9 +120,9 @@ SendBox calls sendMessage(text)
         ↓
 Composer dispatches to Redux store
         ↓
-Direct Line sends to bot via WebSocket
+Direct Line sends to agent via WebSocket
         ↓
-Bot responds via WebSocket
+Agent responds via WebSocket
         ↓
 Direct Line receives response
         ↓
