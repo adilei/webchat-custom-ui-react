@@ -1,4 +1,4 @@
-import { useEffect, useRef, useMemo } from 'react';
+import { useEffect, useRef, useMemo, useCallback, useState } from 'react';
 import { hooks } from 'botframework-webchat';
 import Markdown from 'react-markdown';
 
@@ -9,9 +9,25 @@ function normalizeText(text) {
   return text?.replace(/<br\s*\/?>/gi, '\n') || '';
 }
 
+// Debounce helper
+function useDebounce(callback, delay) {
+  const timeoutRef = useRef(null);
+
+  return useCallback((...args) => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    timeoutRef.current = setTimeout(() => {
+      callback(...args);
+    }, delay);
+  }, [callback, delay]);
+}
+
 function ChatTranscript() {
   const [activities] = useActivities();
+  const containerRef = useRef(null);
   const endRef = useRef(null);
+  const [isAtBottom, setIsAtBottom] = useState(true);
 
   const { messages, streamingText } = useMemo(() => {
     const finalMessages = [];
@@ -76,13 +92,51 @@ function ChatTranscript() {
     };
   }, [activities]);
 
-  // Auto-scroll to bottom
+  // Check if user is at (or near) the bottom of the scroll container
+  const checkIfAtBottom = useCallback(() => {
+    const container = containerRef.current;
+    if (!container) return true;
+
+    const threshold = 100; // px from bottom to consider "at bottom"
+    const distanceFromBottom = container.scrollHeight - container.scrollTop - container.clientHeight;
+    return distanceFromBottom <= threshold;
+  }, []);
+
+  // Handle scroll events to track if user is at bottom
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      setIsAtBottom(checkIfAtBottom());
+    };
+
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, [checkIfAtBottom]);
+
+  // Debounced scroll function (20ms delay)
+  const scrollToBottom = useCallback(() => {
+    if (isAtBottom) {
+      endRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [isAtBottom]);
+
+  const debouncedScroll = useDebounce(scrollToBottom, 20);
+
+  // Auto-scroll when new content arrives (debounced, only if at bottom)
+  useEffect(() => {
+    debouncedScroll();
+  }, [messages.length, streamingText, debouncedScroll]);
+
+  // Always scroll to bottom on new user/bot message (not during streaming)
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages.length, streamingText]);
+    setIsAtBottom(true);
+  }, [messages.length]);
 
   return (
-    <div className="transcript">
+    <div className="transcript" ref={containerRef}>
       {messages.length === 0 && !streamingText ? (
         <div className="transcript-empty">
           <p>Start a conversation...</p>
