@@ -75,11 +75,11 @@ export function setupUserMessageHandler(directLine) {
   const { emitActivity, emitTyping, emitStreamChunk, emitFinalMessage } = directLine;
 
   directLine.onUserActivity(async (activity) => {
-    // Handle adaptive card submissions
-    if (activity.value) {
-      await wait(500);
+    // Handle adaptive card submissions (value is an object, not a string)
+    if (activity.value && typeof activity.value === 'object') {
+      await wait(300);
       emitTyping();
-      await wait(800);
+      await wait(1500);
 
       if (activity.value.action === 'submitFeedback') {
         const rating = activity.value.rating || 'not specified';
@@ -127,9 +127,9 @@ export function setupUserMessageHandler(directLine) {
 
     // Time off request
     if (text === BUTTON_VALUES.TIME_OFF) {
-      await wait(500);
+      await wait(300);
       emitTyping();
-      await wait(700);
+      await wait(1500);
       emitActivity({
         text: "I can help you with that! Here's your time off request form:",
         attachments: [timeOffCard],
@@ -145,9 +145,9 @@ export function setupUserMessageHandler(directLine) {
 
     // View leave balance
     if (text === BUTTON_VALUES.BALANCE) {
-      await wait(500);
+      await wait(300);
       emitTyping();
-      await wait(600);
+      await wait(1400);
       emitActivity({
         text: "Here's your current leave balance:\n\n| Type | Available | Accrual |\n|------|-----------|----------|\n| **Sick Days** | 24 hours | 8h/quarter |\n| **Wellness** | 40 hours | 5 days/year |\n| **Vacation** | 80 hours | 8h/month |\n\nWould you like to request time off?",
         suggestedActions: {
@@ -163,9 +163,9 @@ export function setupUserMessageHandler(directLine) {
 
     // Company policies - streaming response
     if (text === BUTTON_VALUES.POLICIES) {
-      await wait(500);
+      await wait(300);
       emitTyping();
-      await wait(400);
+      await wait(1200);
 
       const streamingText =
         'Our company offers flexible work arrangements, competitive benefits, and a supportive culture. Key policies include **unlimited PTO** (with manager approval), **remote work options**, and comprehensive health coverage. For detailed information, please visit the HR portal or reach out to your HR representative.';
@@ -188,9 +188,9 @@ export function setupUserMessageHandler(directLine) {
 
     // Thanks - show feedback
     if (text === BUTTON_VALUES.THANKS) {
-      await wait(500);
+      await wait(300);
       emitTyping();
-      await wait(500);
+      await wait(1300);
       emitActivity({
         text: "You're welcome! Before you go, would you mind sharing your feedback?",
         attachments: [feedbackCard],
