@@ -8,7 +8,7 @@ function Header() {
       <div className="header-content">
         <div className="header-logo">
           <span className="logo-icon">💬</span>
-          <span className="logo-text">Support</span>
+          <span className="logo-text">HR Assistant</span>
         </div>
 
         <button className="start-over-btn" onClick={handleStartOver}>
