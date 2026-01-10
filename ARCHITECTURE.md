@@ -100,7 +100,7 @@ function SendBox() {
 }
 ```
 
-## Available Hooks
+## Hooks Used in This Project
 
 | Hook | Returns | Purpose |
 |------|---------|---------|
