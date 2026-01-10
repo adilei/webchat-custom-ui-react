@@ -8,7 +8,7 @@ When building a custom chat UI for Copilot Studio, there are three main options:
 
 | Approach | Pros | Cons |
 |----------|------|------|
-| **StyleOptions** | Easy to configure | Limited to colors, fonts, sizes. Can't change layout or add custom components. |
+| [**StyleOptions**](https://github.com/microsoft/BotFramework-WebChat/blob/main/docs/STYLE_OPTIONS.md) | Easy to configure | Limited to colors, fonts, sizes. Can't change layout or add custom components. |
 | **Fully Custom UI** | Complete control | Must reimplement connection handling, activity management, typing indicators, streaming, etc. |
 | **Composer + Hooks** | Full styling control + WebChat handles the hard parts | Requires understanding the hooks API |
 
