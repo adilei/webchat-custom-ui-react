@@ -1,0 +1,275 @@
+/* ===================================
+   Adaptive Cards - Dark Theme Styles
+
+   CSS classes documented at:
+   https://learn.microsoft.com/en-us/adaptive-cards/sdk/rendering-cards/javascript/native-styling
+   =================================== */
+
+/* Card container wrapper */
+.adaptive-card-container {
+  margin-top: 0.5rem;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* When card is part of a message with text */
+.message__attachments {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Only add separator when there's text before attachments */
+.message__bubble:has(.message__attachments:only-child) .message__attachments {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+/* ===================================
+   Links/Anchors
+   =================================== */
+.adaptive-card-container a.ac-anchor,
+.adaptive-card-container a.ac-anchor:link,
+.adaptive-card-container a.ac-anchor:visited {
+  color: #7dd3fc;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.adaptive-card-container a.ac-anchor:hover {
+  color: #bae6fd;
+}
+
+/* ===================================
+   Buttons (Action.Submit, Action.OpenUrl)
+   Modern flat/ghost style
+   =================================== */
+.adaptive-card-container .ac-pushButton {
+  background: transparent;
+  color: #e0e0e0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  cursor: pointer;
+}
+
+.adaptive-card-container .ac-pushButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+}
+
+.adaptive-card-container .ac-pushButton:active {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.adaptive-card-container .ac-pushButton:focus {
+  outline: none;
+  border-color: rgba(125, 211, 252, 0.6);
+  box-shadow: 0 0 0 2px rgba(125, 211, 252, 0.2);
+}
+
+/* Destructive action style (official class: .style-destructive) */
+.adaptive-card-container .ac-pushButton.style-destructive {
+  color: #fca5a5;
+  border-color: rgba(252, 165, 165, 0.3);
+}
+
+.adaptive-card-container .ac-pushButton.style-destructive:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(252, 165, 165, 0.5);
+  color: #fecaca;
+}
+
+.adaptive-card-container .ac-pushButton.style-destructive:active {
+  background: rgba(239, 68, 68, 0.25);
+}
+
+/* Positive action style (official class: .style-positive) */
+.adaptive-card-container .ac-pushButton.style-positive {
+  color: #86efac;
+  border-color: rgba(134, 239, 172, 0.3);
+}
+
+.adaptive-card-container .ac-pushButton.style-positive:hover {
+  background: rgba(34, 197, 94, 0.15);
+  border-color: rgba(134, 239, 172, 0.5);
+  color: #bbf7d0;
+}
+
+.adaptive-card-container .ac-pushButton.style-positive:active {
+  background: rgba(34, 197, 94, 0.25);
+}
+
+/* ===================================
+   Input Fields
+   =================================== */
+.adaptive-card-container .ac-input {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 8px 12px;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.adaptive-card-container .ac-input:focus {
+  outline: none;
+  border-color: rgba(125, 211, 252, 0.6);
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.adaptive-card-container .ac-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Text input */
+.adaptive-card-container .ac-textInput {
+  min-height: 36px;
+  width: 100%;
+}
+
+.adaptive-card-container .ac-textInput.ac-multiline {
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* Number, date, time inputs */
+.adaptive-card-container .ac-numberInput,
+.adaptive-card-container .ac-dateInput,
+.adaptive-card-container .ac-timeInput {
+  min-height: 36px;
+}
+
+/* Choice set (dropdown) */
+.adaptive-card-container select.ac-input,
+.adaptive-card-container .ac-multichoiceInput {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='white' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+
+.adaptive-card-container select.ac-input option,
+.adaptive-card-container .ac-multichoiceInput option {
+  background-color: #1a365d;
+  color: #ffffff;
+}
+
+/* Toggle input (checkbox) */
+.adaptive-card-container .ac-input[type="checkbox"],
+.adaptive-card-container .ac-toggleInput {
+  accent-color: #0078d4;
+  width: 18px;
+  height: 18px;
+}
+
+/* Radio buttons (expanded choice set) */
+.adaptive-card-container .ac-input[type="radio"] {
+  accent-color: #0078d4;
+  width: 18px;
+  height: 18px;
+}
+
+/* Validation error state */
+.adaptive-card-container .ac-input.ac-input-validation-failed {
+  border-color: #ef4444 !important;
+}
+
+/* ===================================
+   TextBlock styling
+   =================================== */
+.adaptive-card-container .ac-textBlock {
+  line-height: 1.4;
+}
+
+/* ===================================
+   FactSet styling
+   =================================== */
+.adaptive-card-container .ac-factSet {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+}
+
+.adaptive-card-container .ac-fact-title {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.adaptive-card-container .ac-fact-value {
+  color: #ffffff;
+}
+
+/* ===================================
+   Image styling
+   =================================== */
+.adaptive-card-container .ac-image {
+  border-radius: 8px;
+  max-width: 100%;
+}
+
+.adaptive-card-container .ac-image.ac-selectable {
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.adaptive-card-container .ac-image.ac-selectable:hover {
+  opacity: 0.9;
+}
+
+/* ===================================
+   Container borders
+   =================================== */
+.adaptive-card-container .ac-container {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.adaptive-card-container .ac-columnSet {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ===================================
+   ActionSet
+   =================================== */
+.adaptive-card-container .ac-actionSet {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ===================================
+   Image attachments (non-adaptive card)
+   =================================== */
+.message__image-attachment {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 8px;
+  margin-top: 0.5rem;
+}
+
+/* File attachment link */
+.message__file-attachment {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #7dd3fc;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  margin-top: 0.5rem;
+}
+
+.message__file-attachment:hover {
+  color: #bae6fd;
+}

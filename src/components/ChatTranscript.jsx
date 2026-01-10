@@ -1,6 +1,7 @@
 import { useEffect, useRef, useMemo, useCallback, useState } from 'react';
 import { hooks } from 'botframework-webchat';
 import Markdown from 'react-markdown';
+import MessageAttachments from './MessageAttachments';
 
 const { useActivities } = hooks;
 
@@ -39,7 +40,7 @@ function ChatTranscript() {
       const streamType = activity.channelData?.streamType;
       const streamId = activity.channelData?.streamId;
 
-      // Final bot messages
+      // Final bot messages (streaming mode)
       if (activity.type === 'message' && streamType === 'final') {
         finalStreamIds.add(streamId);
         finalMessages.push({
@@ -48,6 +49,7 @@ function ChatTranscript() {
           from: activity.from?.role || 'bot',
           timestamp: activity.timestamp,
           streamId: streamId,
+          attachments: activity.attachments || [],
         });
       }
       // User messages (no streamType)
@@ -57,6 +59,22 @@ function ChatTranscript() {
           text: activity.text,
           from: 'user',
           timestamp: activity.timestamp,
+          attachments: activity.attachments || [],
+        });
+      }
+      // Bot messages without streaming (Direct Line mode)
+      else if (
+        activity.type === 'message' &&
+        activity.from?.role === 'bot' &&
+        !streamType &&
+        (activity.text || activity.attachments?.length)
+      ) {
+        finalMessages.push({
+          id: activity.id,
+          text: activity.text,
+          from: 'bot',
+          timestamp: activity.timestamp,
+          attachments: activity.attachments || [],
         });
       }
       // Streaming delta chunks (type: typing)
@@ -152,17 +170,23 @@ function ChatTranscript() {
               className={`message message--${msg.from}`}
             >
               <div className="message__bubble">
-                <Markdown
-                  components={{
-                    a: ({ href, children }) => (
-                      <a href={href} target="_blank" rel="noopener noreferrer">
-                        {children}
-                      </a>
-                    ),
-                  }}
-                >
-                  {normalizeText(msg.text)}
-                </Markdown>
+                {msg.text && (
+                  <Markdown
+                    components={{
+                      a: ({ href, children }) => (
+                        <a href={href} target="_blank" rel="noopener noreferrer">
+                          {children}
+                        </a>
+                      ),
+                    }}
+                  >
+                    {normalizeText(msg.text)}
+                  </Markdown>
+                )}
+                <MessageAttachments
+                  attachments={msg.attachments}
+                  activityId={msg.id}
+                />
               </div>
             </div>
           ))}
