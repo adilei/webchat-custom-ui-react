@@ -2,6 +2,18 @@
 
 A React chat application with **fully custom UI components** built on top of BotFramework WebChat's hooks layer. Supports Microsoft Copilot Studio agents via Direct Line or the M365 Agents SDK.
 
+## Why This Approach?
+
+When building a custom chat UI for Copilot Studio, there are three main options:
+
+| Approach | Pros | Cons |
+|----------|------|------|
+| **StyleOptions** | Easy to configure | Limited to colors, fonts, sizes. Can't change layout or add custom components. |
+| **Fully Custom UI** | Complete control | Must reimplement connection handling, activity management, typing indicators, streaming, etc. |
+| **Composer + Hooks** | Full styling control + WebChat handles the hard parts | Requires understanding the hooks API |
+
+This project uses **Composer + Hooks** - we get complete control over the UI while WebChat manages Direct Line connections, activity state, and the messaging protocol. Best of both worlds.
+
 ## Quick Start
 
 See it in action without any agent configuration:
