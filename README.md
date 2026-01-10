@@ -27,6 +27,8 @@ Open http://localhost:5173/?demo
 
 This runs an interactive HR assistant demo that showcases streaming text, adaptive cards, markdown tables, and suggested actions - all client-side.
 
+![Demo screenshot](demo.png)
+
 ## Connection Modes
 
 ### Demo Mode (No Setup Required)
