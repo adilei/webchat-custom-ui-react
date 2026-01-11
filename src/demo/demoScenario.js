@@ -161,20 +161,54 @@ export function setupUserMessageHandler(directLine) {
       return;
     }
 
-    // Company policies - streaming response
+    // Company policies - streaming response with citations
     if (text === BUTTON_VALUES.POLICIES) {
       await wait(300);
       emitTyping();
       await wait(1200);
 
       const streamingText =
-        'Our company offers flexible work arrangements, competitive benefits, and a supportive culture. Key policies include **unlimited PTO** (with manager approval), **remote work options**, and comprehensive health coverage. For detailed information, please visit the HR portal or reach out to your HR representative.';
+        'Our company offers flexible work arrangements[1], competitive benefits[2], and a supportive culture. Key policies include **unlimited PTO** (with manager approval), **remote work options**[1], and comprehensive health coverage[2]. For detailed information, please visit the HR portal or reach out to your HR representative.';
 
       await streamText(streamingText, emitStreamChunk, emitFinalMessage);
 
       await wait(600);
       emitActivity({
-        text: 'Here are some helpful resources:\n\n- [Employee Handbook](https://example.com/handbook)\n- [Benefits Portal](https://example.com/benefits)\n- [IT Support](https://example.com/support)\n\nAnything else I can help with?',
+        text: 'Here are some additional resources that might help:\n\nThe **Employee Handbook**[1] covers all workplace policies, while the **Benefits Portal**[2] has details on health insurance, retirement plans, and wellness programs. For technical issues, contact **IT Support**[3].\n\nAnything else I can help with?',
+        entities: [
+          {
+            type: 'https://schema.org/Message',
+            citation: [
+              {
+                appearance: {
+                  name: 'Employee Handbook - Company Policies & Guidelines',
+                  url: 'https://example.com/handbook',
+                },
+                position: 1,
+                '@type': 'Claim',
+                '@id': 'demo-citation-1',
+              },
+              {
+                appearance: {
+                  name: 'Benefits Portal - Health, Retirement & Wellness',
+                  url: 'https://example.com/benefits',
+                },
+                position: 2,
+                '@type': 'Claim',
+                '@id': 'demo-citation-2',
+              },
+              {
+                appearance: {
+                  name: 'IT Support - Technical Assistance',
+                  url: 'https://example.com/support',
+                },
+                position: 3,
+                '@type': 'Claim',
+                '@id': 'demo-citation-3',
+              },
+            ],
+          },
+        ],
         suggestedActions: {
           actions: [
             { type: 'imBack', title: 'Request time off', value: 'I want to request time off' },
